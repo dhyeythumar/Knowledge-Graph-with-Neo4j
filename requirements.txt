@@ -1,0 +1,10 @@
+matplotlib==3.3.2
+pandas==1.1.4
+requests==2.24.0
+html5lib==1.1
+networkx==2.5
+beautifulsoup4==4.9.3
+html2text==2020.1.16
+neomodel==4.0.1
+neuralcoref==4.0
+spacy==2.3.2

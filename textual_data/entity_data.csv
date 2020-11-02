@@ -1,0 +1,62 @@
+,subject,relation,object,subj_type,obj_type
+0,Albert einstein,published,300 scientific papers,ORG,NOUN_CHUNK
+1,Loss,forced,Sale,NOUN_CHUNK,NOUN_CHUNK
+2,The twelve year old einstein,taught,Einstein algebra,PERSON,NOUN_CHUNK
+3,Family tutor,devoted,Family tutor,NOUN_CHUNK,NOUN_CHUNK
+4,Albert einstein,took,Entrance examinations,PERSON,NOUN_CHUNK
+5,Alberts sister,married,Wintelers,NOUN_CHUNK,PERSON
+6,Wintelers,passed,Swiss matura,NORP,NOUN_CHUNK
+7,Son,had,Breakdown,NOUN_CHUNK,NOUN_CHUNK
+8,Son,spoke about,Love,NOUN_CHUNK,NOUN_CHUNK
+9,Albert einstein,spent,Frustrating years,PERSON,NOUN_CHUNK
+10,Albert einstein,acquired,Swiss citizenship,ORG,NOUN_CHUNK
+11,Marcel grossmanns,secured,Job,PERSON,NOUN_CHUNK
+12,Albert einstein,evaluated,Patent applications,ORG,NOUN_CHUNK
+13,Albert einstein,completed,Einsteins paper,PERSON,NOUN_CHUNK
+14,Membership,included,Paid salary,NOUN_CHUNK,NOUN_CHUNK
+15,Albert einstein,influenced by,Romantic affair,PERSON,NOUN_CHUNK
+16,Albert einstein,joined,Academy,ORG,NOUN_CHUNK
+17,Albert einstein,received,The copley medal,ORG,WORK_OF_ART
+18,Albert einstein,expresses,Views,PERSON,NOUN_CHUNK
+19,Albert einstein,visited,Palestine,PERSON,GPE
+20,Albert einstein,visited,America,PERSON,GPE
+21,Locker lampson,invited,Albert einstein,PERSON,PERSON
+22,Jewish invitees,totaled,"1,000 saved individuals",NOUN_CHUNK,NOUN_CHUNK
+23,The germans,was,The germans,NORP,NORP
+24,Albert einstein,expressed,Einstein appreciation,PERSON,NOUN_CHUNK
+25,Albert einstein,submitted,Suggestions,ORG,NOUN_CHUNK
+26,Albert einstein,developed,Appreciation,ORG,NOUN_CHUNK
+27,Albert einstein,taught,Albert einstein,PERSON,PERSON
+28,Music,possessed,Unusual meaning,NOUN_CHUNK,NOUN_CHUNK
+29,Music,took on,Pivotal permanent role,NOUN_CHUNK,NOUN_CHUNK
+30,The fbi,created,Secret dossier,ORG,NOUN_CHUNK
+31,Albert einstein,experienced,Internal bleeding,ORG,NOUN_CHUNK
+32,Nuclear physicist j. robert oppenheimer,summarized,Nuclear physicist j. robert oppenheimer impression,PERSON,NOUN_CHUNK
+33,Albert einstein,published,Hundreds of books and articles,PERSON,CARDINAL
+34,Nuclear physicist j. robert oppenheimer,published,300 scientific papers,PERSON,NOUN_CHUNK
+35,Albert einstein,produced,E = mc2,PERSON,NOUN_CHUNK
+36,Albert einstein,framed,Special relativity,ORG,NOUN_CHUNK
+37,Hermann minkowski,reinterpreted,Special relativity,PERSON,NOUN_CHUNK
+38,Albert einstein,adopted,Minkowskis formalism,PERSON,NOUN_CHUNK
+39,Albert einstein,predicted,Phenomena,PERSON,NOUN_CHUNK
+40,Researchers,confirmed on,Observation,NOUN_CHUNK,NOUN_CHUNK
+41,Albert einstein,applied,Entwurf   theory,PERSON,NOUN_CHUNK
+42,Equations,predicted,Static universe,NOUN_CHUNK,NOUN_CHUNK
+43,Energy,make,Real tensor,NOUN_CHUNK,NOUN_CHUNK
+44,Gravitational fields,play,Important role,NOUN_CHUNK,NOUN_CHUNK
+45,Properties,led,Albert einstein,NOUN_CHUNK,PERSON
+46,Arnold sommerfeld,identified,Invariant,PERSON,NOUN_CHUNK
+47,Und,die,Konstitution der strahlung,GPE,PERSON
+48,Idea,attracted,Attention,NOUN_CHUNK,NOUN_CHUNK
+49,Earlier 1909 paper,inspire,Schrödingers work,NOUN_CHUNK,NOUN_CHUNK
+50,Debates,influence,Later interpretations,NOUN_CHUNK,NOUN_CHUNK
+51,Albert einstein,rejected,Second possibility,ORG,NOUN_CHUNK
+52,Albert einstein,ignored,Mainstream developments,PERSON,NOUN_CHUNK
+53,Mainstream physics,ignored,Einsteins approaches,NOUN_CHUNK,NOUN_CHUNK
+54,Albert einstein,had,Shot collaborations,PERSON,NOUN_CHUNK
+55,Co,invented,Einstein refrigerator,NOUN_CHUNK,NOUN_CHUNK
+56,Albert einstein,permitted,Personal letters,ORG,NOUN_CHUNK
+57,Albert einstein,expressed,Einstein interest,ORG,NOUN_CHUNK
+58,Barbara wolff,told,The bbc,PERSON,ORG
+59,Corbis,licenses,Use,ORG,NOUN_CHUNK
+60,Decision,has,Legal impact,NOUN_CHUNK,NOUN_CHUNK

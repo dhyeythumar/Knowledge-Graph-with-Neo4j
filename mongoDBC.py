@@ -70,6 +70,7 @@ class MongoDBC:
 def populateNeo4jDB() -> None:
     try:
         mongoDBC_obj = MongoDBC()
+        print("[INFO] MongoDB Atlas server is connected")
     except:
         print('\033[91m'+"\n[ERR] MongoDB Atlas server didn't responded to the connect request !!"+'\033[0m')
         print('\033[91m'+"\t>> Check the IP whitelisted addresses on which the DB is active"+'\033[0m')

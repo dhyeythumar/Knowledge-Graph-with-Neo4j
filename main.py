@@ -10,8 +10,9 @@
 
 from textPreprocessing import TextPreprocessing
 from knowledgeExtraction import KnowledgeExtraction
-from neo4jDBC import Neo4jDBC
+from mongoDBC import MongoDBC
 import json
+import sys
 import os
 os.system("")
 
@@ -43,7 +44,7 @@ def vis(doc_name, list_of_dict):
         print("[INFO] Extracted knowledge has been stored in './textual_data/entity_data.csv'")
 
 
-def getMiniBatch(mini_batch_size=5):
+def getMiniBatch(batch_size=5):
     miniBatch = []
     temp_doc = {
         "doc_name": "",
@@ -52,7 +53,7 @@ def getMiniBatch(mini_batch_size=5):
         "entity_list": []
     }
     i = 0
-    with open("./wiki_links_doc/test_wiki_links_remaining.json", "r+", encoding='utf8') as f:
+    with open("./wiki_links_doc/wiki_links_remaining.json", "r+", encoding='utf8') as f:
         whole_list = json.loads(f.read())
         for key, value in whole_list.copy().items():
             temp_doc["doc_name"] = key
@@ -60,7 +61,7 @@ def getMiniBatch(mini_batch_size=5):
             miniBatch.append(temp_doc.copy())  # cos its reference type
             i += 1
             whole_list.pop(key)
-            if(i == mini_batch_size):
+            if(i == batch_size):
                 break
         f.seek(0)
         f.truncate()
@@ -71,7 +72,7 @@ def getMiniBatch(mini_batch_size=5):
 def read_updateJSON_Fallback(miniBatch):
     print('\033[93m'+"[WARNING] Adding the URL back to the remaining list !!"+'\033[0m')
 
-    with open("./wiki_links_doc/test_wiki_links_remaining.json", "r+", encoding='utf8') as f:
+    with open("./wiki_links_doc/wiki_links_remaining.json", "r+", encoding='utf8') as f:
         prev_list = json.loads(f.read())
         for doc in miniBatch:
             if(doc['done'] == False):
@@ -83,7 +84,7 @@ def read_updateJSON_Fallback(miniBatch):
 
 def updateJSON(miniBatch):
     re_add = False
-    with open("./wiki_links_doc/test_wiki_links_completed.json", "r+", encoding='utf8') as f:
+    with open("./wiki_links_doc/wiki_links_completed.json", "r+", encoding='utf8') as f:
         prev_list = json.loads(f.read())
         for doc in miniBatch:
             if(doc['done'] == True):
@@ -115,7 +116,15 @@ mini_batch = [ ...,
 ]
 '''
 def run():
-    mini_batch = getMiniBatch(1)
+    # Test the mongoDB, if not renning then exit !!
+    try:
+        mongoDBC_obj = MongoDBC()
+    except:
+        print('\033[91m'+"\n[ERR] MongoDB Atlas server didn't responded to the connect request !!"+'\033[0m')
+        print('\033[91m'+"\t>> Check the IP whitelisted addresses on which the DB is active"+'\033[0m')
+        sys.exit()
+
+    mini_batch = getMiniBatch()
     for doc in mini_batch:
         # HTML 2 Text and preprocessing of the text
         preprocessed_text = TextPreprocessing.process(doc['wiki_url'], DEBUG['saveHTML2text'])
@@ -127,11 +136,9 @@ def run():
         print("-"*100)
         print("-"*100)
 
-    # for doc in mini_batch:
-    #     # Storing the entity_list to graph DB
-    #     Neo4jDBC().addEntities(doc['doc_name'], doc['entity_list'])
-    #     # Neo4jDBC().printAllNodes()
-    #     # Neo4jDBC().deleteAllNodes()
+    # Storing the whole mini_batch to mongoDB
+    mongoDBC_obj.insertMany(mini_batch)
+    print("[INFO] After MongoDB insert operation, total number of doc stored is {}".format(mongoDBC_obj.totalDocCount()))
 
     # -- Update JSON files --
     readd = updateJSON(mini_batch)

@@ -62,7 +62,7 @@ class MongoDBC:
             self.insertOne(doc)
         
     def totalDocCount(self) -> int:
-        print("[INFO] Total doc count in the collecction is {}".format(self.collection.count_documents({})))
+        print("[INFO] Total doc count in the collection is {}".format(self.collection.count_documents({})))
 
 
 # gets mini_batch from MongoDB Atlas and add them to Neo4j,

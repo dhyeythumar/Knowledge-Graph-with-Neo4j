@@ -53,48 +53,39 @@ def getMiniBatch(batch_size=5):
         "entity_list": []
     }
     i = 0
-    with open("./wiki_links_doc/wiki_links_remaining.json", "r+", encoding='utf8') as f:
+    with open("./wiki_links_doc/wiki_links_remaining.json", "r", encoding='utf8') as f:
         whole_list = json.loads(f.read())
-        for key, value in whole_list.copy().items():
-            temp_doc["doc_name"] = key
-            temp_doc["wiki_url"] = value
-            miniBatch.append(temp_doc.copy())  # cos its reference type
-            i += 1
-            whole_list.pop(key)
-            if(i == batch_size):
-                break
-        f.seek(0)
-        f.truncate()
-        json.dump(whole_list, f)
+    for key, value in whole_list.items():
+        temp_doc["doc_name"] = key
+        temp_doc["wiki_url"] = value
+        miniBatch.append(temp_doc.copy())  # cos its reference type
+        i += 1
+        if(i == batch_size):
+            break
     return miniBatch
 
-# Add back the wiki urls when there is an error in the current doc in miniBatch
-def read_updateJSON_Fallback(miniBatch):
-    print('\033[93m'+"[WARNING] Adding the URL back to the remaining list !!"+'\033[0m')
-
+def updateRemaining_JSON(miniBatch):
+    print('\033[93m'+"[WARNING] Removing the URL from remaining list !!"+'\033[0m')
     with open("./wiki_links_doc/wiki_links_remaining.json", "r+", encoding='utf8') as f:
         prev_list = json.loads(f.read())
         for doc in miniBatch:
-            if(doc['done'] == False):
+            if(doc['done'] == True):
+                prev_list.pop(doc['doc_name'])
+            else:
                 print('\033[93m'+" >> [Compute ERR] Entity list was not generated for {}".format(doc['doc_name'])+'\033[0m')
-                prev_list[doc['doc_name']] = doc['wiki_url']
         f.seek(0)
         f.truncate()
         json.dump(prev_list, f)
 
-def updateJSON(miniBatch):
-    re_add = False
+def updateCompleted_JSON(miniBatch):
     with open("./wiki_links_doc/wiki_links_completed.json", "r+", encoding='utf8') as f:
         prev_list = json.loads(f.read())
         for doc in miniBatch:
             if(doc['done'] == True):
                 prev_list[doc['doc_name']] = doc['wiki_url']
-            elif(doc['done'] == False):
-                re_add = True
         f.seek(0)
         f.truncate()
         json.dump(prev_list, f)
-    return re_add
 
 
 ''' :: mini_batch structure ::
@@ -134,17 +125,15 @@ def run():
         doc['entity_list'] = knowledgeExtraction_obj.retrieveKnowledge()  # => list of dictionaries
         if(len(doc['entity_list']) != 0):
             doc['done'] = True
-        print("-"*100)
-        print("-"*100)
+        print("="*100)
 
     # Storing the whole mini_batch to mongoDB
     mongoDBC_obj.insertMany(mini_batch)
-    print("[INFO] After MongoDB insert operation, total number of doc stored is {}".format(mongoDBC_obj.totalDocCount()))
+    mongoDBC_obj.totalDocCount()
 
     # -- Update JSON files --
-    readd = updateJSON(mini_batch)
-    if(readd):
-        read_updateJSON_Fallback(mini_batch)
+    updateCompleted_JSON(mini_batch)
+    updateRemaining_JSON(mini_batch)
 
     '''Visualize the graphs using networkx'''
     if(DEBUG['vis']):

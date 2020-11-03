@@ -80,38 +80,41 @@ class KnowledgeExtraction:
             # limit our example to simple sentences with one subject and object
             if (deps.count('obj') + deps.count('dobj')) != 1 or (deps.count('subj') + deps.count('nsubj')) != 1:
                 continue
+            try:
+                for token in sent:
+                    if token.dep_ not in ('obj', 'dobj'):  # identify object nodes
+                        continue
+                    subject = [w for w in token.head.lefts if w.dep_ in ('subj', 'nsubj')]  # identify subject nodes
+                    if subject:
+                        subject = subject[0]
+                        # identify relationship by root dependency
+                        relation = [w for w in token.ancestors if w.dep_ == 'ROOT']
+                        if relation:
+                            relation = relation[0]
+                            # add adposition or particle to relationship
+                            if relation.nbor(1).pos_ in ('ADP', 'PART'):
+                                relation = ' '.join((str(relation), str(relation.nbor(1))))
+                        else:
+                            relation = 'unknown'
 
-            for token in sent:
-                if token.dep_ not in ('obj', 'dobj'):  # identify object nodes
-                    continue
-                subject = [w for w in token.head.lefts if w.dep_ in ('subj', 'nsubj')]  # identify subject nodes
-                if subject:
-                    subject = subject[0]
-                    # identify relationship by root dependency
-                    relation = [w for w in token.ancestors if w.dep_ == 'ROOT']
-                    if relation:
-                        relation = relation[0]
-                        # add adposition or particle to relationship
-                        if relation.nbor(1).pos_ in ('ADP', 'PART'):
-                            relation = ' '.join((str(relation), str(relation.nbor(1))))
-                    else:
-                        relation = 'unknown'
+                        subject, subject_type = self.refine_entity(subject, sent)
+                        token, object_type = self.refine_entity(token, sent)
 
-                    subject, subject_type = self.refine_entity(subject, sent)
-                    token, object_type = self.refine_entity(token, sent)
-
-                    # don't select empty string
-                    if(subject != "" and subject_type != "" and token != "" and object_type != ""):
-                        if(self.doc_name.find(subject.lower()) >= 0):
-                            subject = self.doc_name
-                        if(self.doc_name.find(token.lower()) >= 0):
-                            token = self.doc_name
-                        temp['subject'] = subject.capitalize()
-                        temp['relation'] = str(relation).lower()
-                        temp['object'] = token.capitalize()
-                        temp['subj_type'] = subject_type
-                        temp['obj_type'] = object_type
-                        entity_pairs.append(temp.copy())
+                        # don't select empty string
+                        if(subject != "" and subject_type != "" and token != "" and object_type != ""):
+                            if(self.doc_name.find(subject.lower()) >= 0):
+                                subject = self.doc_name
+                            if(self.doc_name.find(token.lower()) >= 0):
+                                token = self.doc_name
+                            temp['subject'] = subject.capitalize()
+                            temp['relation'] = str(relation).lower()
+                            temp['object'] = token.capitalize()
+                            temp['subj_type'] = subject_type
+                            temp['obj_type'] = object_type
+                            entity_pairs.append(temp.copy())
+            except:
+                print('\033[91m'+"[ERR] Sentence error in '{:s}' doc".format(self.doc_name)+'\033[0m')
+                continue
         if(self.saveEntities):
             with open("./textual_data/entity_list.json", 'w', encoding='utf8') as f:
                 json.dump(entity_pairs, f)
@@ -125,7 +128,7 @@ if __name__ == "__main__":
     url_list = [{
         'doc_name': "Albert Einstein",
         'wiki_url': "https://en.wikipedia.org/wiki/Albert_Einstein",
-        'doc_content': "Albert Einstein developed the theory-of-relativity."
+        'doc_content': "In his paper on mass–energy equivalence, Einstein produced E = mc2 as a consequence of his special relativity equations."
     }]
     knowledgeExtraction_obj = KnowledgeExtraction(url_list[0]['doc_name'], url_list[0]['doc_content'], True)
     list_of_dict = knowledgeExtraction_obj.retrieveKnowledge()  # => list of lists

@@ -31,6 +31,9 @@ class TextPreprocessing:
         text = re.sub(r'\)+', '', text)      # eg: string) => string
         text = re.sub(r'\(+', '', text)      # eg: (string => string
 
+        text = re.sub(r'\|.*?\|', '', text)  # eg: |string| => ''
+        text = re.sub(r'\|+', '', text)      # eg: string| => string
+
         text = re.sub(r'\.+', '.', text)     # eg: ... => .
         text = re.sub(r'\-+', ' ', text)     # eg: --- => ' '
         text = re.sub(r'\*+', '', text)      # eg: * => ''

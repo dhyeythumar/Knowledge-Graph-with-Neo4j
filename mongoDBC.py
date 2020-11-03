@@ -22,7 +22,7 @@ class MongoDBC:
 
     def __init__(self):
         # self.client = MongoClient('mongodb://localhost:27017')
-        self.client = pymongo.MongoClient("mongodb+srv://<user>:<password>@cluster0.te4lx.mongodb.net/<dbname>?retryWrites=true&w=majority")
+        self.client = pymongo.MongoClient("mongodb+srv://admin:admin@cluster0.te4lx.mongodb.net/BDA_project?retryWrites=true&w=majority")
         # print(self.client.list_database_names())
         self.db = self.client.BDA_project # select or create this DB
         # print(self.db.list_collection_names())

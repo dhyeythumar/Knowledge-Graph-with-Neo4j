@@ -10,9 +10,7 @@
 Command to get all node & connections in Neo4j browser:
     match(n) return(n)
 
-:: Process ::
-1. Gets the data from main.py
-2. Puts the knowledge extracted onto a Neo4j DB (graph database)
+Provides the interface to Populates Neo4j DB
 '''
 
 from neomodel import (StructuredNode, StringProperty, RelationshipTo, RelationshipFrom, config, StructuredRel, ZeroOrMore)
@@ -41,7 +39,7 @@ class Subject(StructuredNode):
 class Neo4jDBC:
 
     @staticmethod
-    def addEntities(doc_name:str, entity_list) -> None:
+    def insertEntities(doc_name:str, entity_list) -> None:
         print("\n[INFO] Adding the knowledge triplets on '{:s}' wiki doc to Neo4j graph DB".format(doc_name))
         for doc in entity_list:
             if(doc['subject'] == doc['object']):
@@ -90,7 +88,7 @@ class Neo4jDBC:
 
 
 if __name__ == "__main__":
-    data = [
+    test_data = [
         {
             "subject": "Albert einstein",
             "relation": "published",
@@ -135,7 +133,7 @@ if __name__ == "__main__":
         },
     ]
     try:
-        # Neo4jDBC().addEntities("Albert einstein", data)
+        # Neo4jDBC().insertEntities("Albert einstein", test_data)
         Neo4jDBC().printAllNodes()
         # Neo4jDBC().deleteAllNodes()
     except:
@@ -162,7 +160,6 @@ if object_exists == None:
 else:
     object_node = object_exists
 '''
-
 
 '''
 # Checking if the predicate already exists b/w the nodes.

@@ -59,7 +59,7 @@ $ pip install -r requirements.txt
 $ python -m spacy download en_core_web_md
 ```
 
-- Build the neuralcoref from the source code (because the package from pypi is not compateable with spaCy's langualge model)
+- Build the neuralcoref from the source code (because the package from PyPI is not compatible with spaCy's language model)
 ```bash
 $ git clone https://github.com/huggingface/neuralcoref.git
 $ cd neuralcoref
@@ -69,7 +69,7 @@ $ pip install -e .
 
 
 ## Getting Started
-Run this project by just executing this command:
+Run this project by just executing:
 ```bash
 $ python main.py
 ```
@@ -87,4 +87,4 @@ Licensed under the [MIT License](./LICENSE).
 
 
 ## Acknowledgements
-1. Medium article on ["Auto-Generated Knowledge Graphs"](https://towardsdatascience.com/auto-generated-knowledge-graphs-92ca99a81121) for Knowledge Graphs implementation and visualization using networkx.
+1. Medium article on ["Auto-Generated Knowledge Graphs"](https://towardsdatascience.com/auto-generated-knowledge-graphs-92ca99a81121) for Knowledge Graph implementation and visualization using networkx.

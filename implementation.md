@@ -2,8 +2,8 @@
 - [Introduction](./README.md#introduction)
 - [Setup Instructions](./README.md#setup-instructions)
 - [Getting Started](./README.md#getting-started)
-- [**Abstract Idea & Problem**](#abstract-idea-&-problem)
-- [**Trade-off between RAM size & DB access time with the solution**](#trade-off-between-RAM-size-&-DB-access-time-with-the-solution)
+- [**Abstract Idea and Problem**](#abstract-idea-and-problem)
+- [**Tradeoff between RAM size and DB access time with the solution**](#tradeoff-between-ram-size-and-db-access-time-with-the-solution)
 - [**Implementation**](#implementation)
 - [**Future Development**](#future-development)
 - [**Results**](#results)
@@ -16,7 +16,7 @@ If you want to setup & execute this repo the check this <a href="./README.md">RE
 </h4>
 
 
-## Abstract Idea & Problem
+## Abstract Idea and Problem
 First & foremost, the main process works in the form of batches having JSON-like schema (an example is given in the [implementation](#implementation) section) includes the Wikipedia page links. These pages are scraped, pre-processed & knowledge is extracted for them. After completing, the extracted knowledge stored in the current batch is transferred to the MongoDB Atlas server for temporary persistence (the permanent storage is the Neo4j DB). Here MongoDB is only used as the helper DB because the complete process is running on the Google Colab & I didn't want to host the Neo4j DB so, I made use of the free tier of MongoDB Atlas server 😅.
 
 ### Problem with RAM memory
@@ -28,7 +28,7 @@ You can try the larger model (as ```python -m spacy download en_core_web_lg```) 
 > When a large language model is used, it allocates too much memory on the RAM & at the same time the code is running the batch process i.e it takes 5 Wikipedia links & finds the knowledge representation & all this data is stored in the RAM, after the batch completion the data is transferred to the MongoDB Atlas server.
 
 
-## Trade-off between RAM size & DB access time with the solution
+## Tradeoff between RAM size and DB access time with the solution
 #### RAM size vs DB access time
 As you saw in the previous section that the batch is collected first & is stored in MongoDB, but its also possible to extract the knowledge from a link & store the data directly to MongoDB but, this is a time-consuming process as we, accessing the DB for each & every link, so I used the batch insert approach. But the problem with the batched approach is the limited amount of RAM as I am storing the massive extracted data on RAM, it is possible the knowledge extraction sub-process is not getting sufficient space on RAM ```(for some pages, the extracted knowledge is massive & for some it is tiny)```.
 
@@ -39,12 +39,12 @@ As I got to know that the nature of the knowledge found on the pages can have ma
 #### Batch example
 You will find that in the code its says mini-batch, but batch & mini-batch both are the same and, I will update the code soon to avoid confusion.
 ```json
-batch = [ ..., 
+batch = [ 
     {
         "doc_name": "Albert Einstein",
         "wiki_url": "https://en.wikipedia.org/wiki/Albert_Einstein",
-        "done": True,
-        "entity_list": [ ...,
+        "done": true,
+        "entity_list": [
             {
                 "subject": "Albert einstein",
                 "relation": "produced",
@@ -52,16 +52,14 @@ batch = [ ...,
                 "subj_type": "PERSON",
                 "obj_type": "NOUN_CHUNK"
             },
-            ...
         ]
-    }, 
-    ...
+    },
 ]
 ```
 
 #### Architectural flow
 <p align="center">
-    <img alt="architectural_flow" src="./images/architectural_flow.png" width="110"/>
+    <img alt="architectural_flow" src="./images/architectural_flow.png"/>
 </p>
 
 ##### HTML2text sub-process:
@@ -113,7 +111,7 @@ batch = [ ...,
 
 ## Results
 <p align="center">
-    <img alt="result-1" src="./images/result-1.png" width="110"/>
+    <img alt="result-1" src="./images/result-1.png"/>
     <br />
     The above image shows the extracted knowledge for "Albert einstein" 
 </p>

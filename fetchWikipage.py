@@ -8,9 +8,7 @@
 
 import requests 
 from bs4 import BeautifulSoup
-import html5lib
 import html2text
-import codecs
 import sys
 
 
@@ -39,14 +37,14 @@ class FetchWikipage:
 
     def generateHTML2text(self, url:str=None) -> str:
         try:
-            if(url == None or url == ""):
+            if(url is None or url == ""):
                 raise Exception('\033[91m'+"[URL ERR] URL is Missing !!"+'\033[0m')
             res = requests.get(url, headers=self.headers)
             if res.status_code != 200:
                 raise Exception('\033[91m'+"[URL ERR] Status = {} !!".format(res.status_code)+'\033[0m')
         except Exception as e:
-            print(e)
             print('\033[91m'+"[ERR] Got some error with the URL '{}' !! (Exiting the current execution)".format(url)+'\033[0m')
+            # print('\033[93m'+e+'\033[0m')
             sys.exit()
 
         print("[INFO] Starting with '{:s}' URL".format(url))

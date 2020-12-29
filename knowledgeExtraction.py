@@ -25,7 +25,7 @@ import json
 class KnowledgeExtraction:
 
     def __init__(self, doc_name:str, doc_content:str, saveEntities:bool=False):
-        self.nlp = spacy.load('en_core_web_lg')
+        self.nlp = spacy.load('en_core_web_md')
         neuralcoref.add_to_pipe(self.nlp)
         self.doc_name = doc_name.lower()
         self.doc_content = doc_content
@@ -112,8 +112,9 @@ class KnowledgeExtraction:
                             temp['subj_type'] = subject_type
                             temp['obj_type'] = object_type
                             entity_pairs.append(temp.copy())
-            except:
+            except Exception as e:
                 print('\033[91m'+"[ERR] Sentence error in '{:s}' doc".format(self.doc_name)+'\033[0m')
+                # print('\033[91m'+e+'\033[0m')
                 continue
         if(self.saveEntities):
             with open("./textual_data/entity_list.json", 'w', encoding='utf8') as f:
@@ -132,4 +133,4 @@ if __name__ == "__main__":
     }]
     knowledgeExtraction_obj = KnowledgeExtraction(url_list[0]['doc_name'], url_list[0]['doc_content'], True)
     list_of_dict = knowledgeExtraction_obj.retrieveKnowledge()  # => list of lists
-    print(list_of_dict)
+    print(list_of_dict) # => [{'subject': 'Albert einstein', 'relation': 'produced', 'object': 'E mc2', 'subj_type': 'PERSON', 'obj_type': 'NOUN_CHUNK'}]

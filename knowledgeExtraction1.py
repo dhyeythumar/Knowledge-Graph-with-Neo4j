@@ -1,7 +1,6 @@
 import spacy
-from spacy import displacy
 from spacy.matcher import Matcher 
-from spacy.tokens import Span
+# from spacy.tokens import Span
 import neuralcoref
 # from tqdm import tqdm
 
@@ -154,8 +153,8 @@ if __name__ == "__main__":
     url_list = [{
         'doc_name': "Albert Einstein",
         'wiki_url': "https://en.wikipedia.org/wiki/Albert_Einstein",
-        'doc_content': "Albert Einstein developed the theory-of-relativity."
+        'doc_content': "In his paper on mass–energy equivalence, Einstein produced E = mc2 as a consequence of his special relativity equations."
     }]
     knowledgeExtraction_obj = KnowledgeExtraction(url_list[0]['doc_name'], url_list[0]['doc_content'], True)
     triplet_list = knowledgeExtraction_obj.retrieveKnowledge_1()  # => list of lists
-    print(triplet_list)
+    print(triplet_list) # => [['Einstein', 'produced', 'his special relativity equations']]

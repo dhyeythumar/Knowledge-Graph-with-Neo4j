@@ -13,7 +13,7 @@ Command to get all node & connections in Neo4j browser:
 Provides the interface to Populates Neo4j DB
 '''
 
-from neomodel import (StructuredNode, StringProperty, RelationshipTo, RelationshipFrom, config, StructuredRel, ZeroOrMore)
+from neomodel import (StructuredNode, StringProperty, RelationshipTo, config, StructuredRel, ZeroOrMore)
 import sys
 import os
 os.system("")
@@ -136,9 +136,10 @@ if __name__ == "__main__":
         # Neo4jDBC().insertEntities("Albert einstein", test_data)
         Neo4jDBC().printAllNodes()
         # Neo4jDBC().deleteAllNodes()
-    except:
+    except Exception as e:
         print('\033[91m'+"\n[ERR] Neo4j DB didn't responded to the connect request !!"+'\033[0m')
         print('\033[91m'+"\t>> Check the port number on which the DB is active"+'\033[0m')
+        # print('\033[93m'+e+'\033[0m')
         sys.exit()
 
 

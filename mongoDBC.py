@@ -30,7 +30,7 @@ class MongoDBC:
         self.collection.create_index([('doc_name', pymongo.ASCENDING)], unique=True)
 
     def findOne(self, doc_name: str = None):
-        if (doc_name == None):
+        if (doc_name is None):
             return self.collection.find_one()
         else:
             return self.collection.find_one({"doc_name": doc_name})
@@ -54,8 +54,9 @@ class MongoDBC:
         try:
             returned_id = self.collection.insert_one(doc)
             print("[INSERT] {} is the current inserted doc id".format(returned_id.inserted_id))
-        except:
+        except Exception as e:
             print('\033[93m'+"[INSERT] doc_name '{:s}' already exists in the MongoDB collection".format(doc['doc_name'])+'\033[0m')
+            # print('\033[93m'+e+'\033[0m')
 
     def insertMany(self, list_of_doc) -> None:
         for doc in list_of_doc:
@@ -71,9 +72,10 @@ def populateNeo4jDB() -> None:
     try:
         mongoDBC_obj = MongoDBC()
         print("[INFO] MongoDB Atlas server is connected")
-    except:
+    except Exception as e:
         print('\033[91m'+"\n[ERR] MongoDB Atlas server didn't responded to the connect request !!"+'\033[0m')
         print('\033[91m'+"\t>> Check the IP whitelisted addresses on which the DB is active"+'\033[0m')
+        # print('\033[93m'+e+'\033[0m')
         sys.exit()
     try:
         from neo4jDBC import Neo4jDBC
@@ -84,9 +86,10 @@ def populateNeo4jDB() -> None:
             # Neo4jDBC().printAllNodes()
             doc_names.append(doc['doc_name'])
         mongoDBC_obj.deleteMany(doc_names)  # delete batch from mongoDB
-    except:
+    except Exception as e:
         print('\033[91m'+"\n[ERR] Neo4j DB didn't responded to the connect request !!"+'\033[0m')
         print('\033[91m'+"\t>> Check the port number on which the DB is active"+'\033[0m')
+        # print('\033[93m'+e+'\033[0m')
         sys.exit()
 
 
@@ -107,9 +110,10 @@ if __name__ == "__main__":
     }]
     try:
         mongoDBC_obj = MongoDBC()
-    except:
+    except Exception as e:
         print('\033[91m'+"\n[ERR] MongoDB Atlas server didn't responded to the connect request !!"+'\033[0m')
         print('\033[91m'+"\t>> Check the IP whitelisted addresses on which the DB is active"+'\033[0m')
+        # print('\033[93m'+e+'\033[0m')
         sys.exit()
 
     # ---- DB ops ----

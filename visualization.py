@@ -62,8 +62,9 @@ class Visualization:
             nx.draw_networkx_edge_labels(subgraph, pos=layout, edge_labels=sublabels, font_color='red')
             plt.axis('off')
             plt.show()
-        except:
+        except Exception as e:
             print('\033[91m'+"[ERR] The node which you are searching doesn't exist in the Graph !!"+'\033[0m')
+            # print('\033[93m'+e+'\033[0m')
 
 
 if __name__ == "__main__":

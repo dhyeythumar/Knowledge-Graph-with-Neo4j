@@ -7,6 +7,8 @@ __pycache__/
 *.so
 
 .DS_Store
+KG_env
+neuralcoref
 
 # Distribution / packaging
 .Python

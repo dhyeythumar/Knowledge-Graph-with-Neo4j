@@ -1,7 +1,16 @@
 # Knowledge Graph with Neo4j
 
+<p align="center">
+    <a href="https://lgtm.com/projects/g/Dhyeythumar/Knowledge-Graph-with-Neo4j/alerts/">
+      <img alt="Total alerts" src="https://img.shields.io/lgtm/alerts/g/Dhyeythumar/Knowledge-Graph-with-Neo4j.svg?logo=lgtm&logoWidth=20&style=for-the-badge" />
+    </a>
+    <a href="https://lgtm.com/projects/g/Dhyeythumar/Knowledge-Graph-with-Neo4j/context:python">
+      <img alt="Language grade: Python" src="https://img.shields.io/lgtm/grade/python/g/Dhyeythumar/Knowledge-Graph-with-Neo4j.svg?logo=lgtm&logoWidth=20&style=for-the-badge" />
+    </a>
+</p>
+
 <h4 align="center">
-Analyzing Knowledge Graph by scraping Wikipedia pages based on famous personalities.
+    Analyzing Knowledge Graph by scraping Wikipedia pages based on famous personalities.
 </h4>
 
 <h5 align="center">

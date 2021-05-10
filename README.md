@@ -51,9 +51,9 @@ I have used the Knowledge Graph technique to analyze, discover patterns and tren
 $ git clone https://github.com/Dhyeythumar/Knowledge-Graph-with-Neo4j.git
 ```
 
-- Create and activate the python virtual environment:
+- Create and activate the python virtual environment (Use python 3.8.7):
 ```bash
-$ python -m venv KG_env
+$ virtualenv KG_env -p path/to/your/python/3.8/exe/file
 $ KG_env\Scripts\activate
 ```
 

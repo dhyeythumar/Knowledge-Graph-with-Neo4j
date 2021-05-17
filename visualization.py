@@ -68,7 +68,7 @@ class Visualization:
 
 
 if __name__ == "__main__":
-    csv_file_name = "./textual_data/triplet_data.csv"
+    csv_file_name = "./textual_data/list_of_entities.csv"
     try:
         data = pd.read_csv(csv_file_name)
         # Complete Knowledge Graph

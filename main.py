@@ -20,8 +20,8 @@ os.system("")
 # Used to check the process and intermediate text files.
 DEBUG = {
     'saveHTML2text' : False,  # to save the text in html_2_text.txt 
-    'saveEntities' : False,   # to save entity_list in a entity_list.json
-    'KG2csv' : False,        
+    'saveEntities' : False,   # to save list of entity in json format (list_of_entities.json)
+    'KG2csv' : False,         # to save list of entity in csv format (list_of_entities.csv)
     'vis' : False
 }
 
@@ -40,8 +40,8 @@ def vis(doc_name, list_of_dict):
 
     # Storing the data in pandas Dataframe
     if(DEBUG['KG2csv']):
-        triplet_DF.to_csv("./textual_data/entity_data.csv")
-        print("[INFO] Extracted knowledge has been stored in './textual_data/entity_data.csv'")
+        triplet_DF.to_csv("./textual_data/list_of_entities.csv")
+        print("[INFO] Extracted knowledge has been stored in './textual_data/list_of_entities.csv'")
 
 
 def getMiniBatch(batch_size=5):

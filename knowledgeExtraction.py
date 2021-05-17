@@ -117,7 +117,7 @@ class KnowledgeExtraction:
                 # print('\033[91m'+e+'\033[0m')
                 continue
         if(self.saveEntities):
-            with open("./textual_data/entity_list.json", 'w', encoding='utf8') as f:
+            with open("./textual_data/list_of_entities.json", 'w', encoding='utf8') as f:
                 json.dump(entity_pairs, f)
         print("-"*100)
         print('[INFO] Total number of Entity pairs [Subject-Verb-Object] extracted :: ', str(len(entity_pairs)))
